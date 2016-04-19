@@ -1,5 +1,5 @@
-# udacity-p5-linux-server-config
-Project 5 from the Udacity's Full Stack Web Developer Nanodegree program
+# PROJECT 5 - Linux Server Configuration
+A project for a setup and configure a Linux (Ubuntu) web server using Amazon AWS. The server must be secure and serve an application previously developed in the course. 
 
 ## User Management
 1. `sudo` commands prompt for user password at least once

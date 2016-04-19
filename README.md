@@ -8,9 +8,29 @@ A project for a setup and configure a Linux (Ubuntu) web server using Amazon AWS
 * [License](#license)
 
 ## Quick start
+### Performing basic configuration
+* Launched Amazon EC2 instance using this [link](https://www.udacity.com/account#!/development_environment)
+* Accessed the EC2 instance using SSH with the following command:
+    * `ssh -i .ssh/udacity_key.rsa root@52.38.46.41`
+* Created a new user named **grader** using the following command:
+    * `sudo adduser grader`
+    * Added secure password
+    * Granted `sudo` permissions to **grader** (described in [User management](#user-management))
+* Changed EC2 instance time zone to UTC:
+    * `sudo dpkg-reconfigure tzdata`
+* Set time sync with NTP:
+    * `sudo apt-get install ntp` 
+    * Added additional servers **/etc/ntp.conf**:
+            * `server ntp.ubuntu.com`
+            * `server pool.ntp.org`
+    * Reload NTP service:
+        * `sudo service ntp reload`
+
+### Securing server
+
 
 ## User management
-1. `sudo` commands prompt for user password at least once
+1. Grant `sudo` permission and prompt for user password at least once
     * To accomplish this task I added a text file named *grader* to **/etc/sudoers.d/** directory with the following content:
         * `grader ALL=(ALL) ALL`
     * This way the user is asked for password at least once per session.

@@ -9,16 +9,23 @@ A project for a setup and configure a Linux (Ubuntu) web server using Amazon AWS
 
 ## Quick start
 ### Performing basic configuration
+#### 1. Launch your Virtual Machine with your Udacity account and log in
 * Launched Amazon EC2 instance using this [link](https://www.udacity.com/account#!/development_environment)
 * Accessed the EC2 instance using SSH with the following command:
     * `ssh -i .ssh/udacity_key.rsa root@52.38.46.41`
+
+#### 2. Create a new user named grader and grant this user sudo permissions 
 * Created a new user named **grader** using the following command:
     * `sudo adduser grader`
     * Added secure password
     * Granted `sudo` permissions to **grader** (described in [User management](#user-management))
+
+#### 3. Update all currently installed packages
 * Updated all currently installed applications:
     * `sudo apt-get update`
     * `sudo apt-get upgrade`
+
+#### 4. Configure the local timezone to UTC
 * Changed EC2 instance time zone to UTC:
     * `sudo dpkg-reconfigure tzdata`
 * Set time sync with NTP:
@@ -30,7 +37,23 @@ A project for a setup and configure a Linux (Ubuntu) web server using Amazon AWS
         * `sudo service ntp reload`
 
 ### Securing server
+#### 1. Adding Key Based login to new user **grader**
+* Changed from root user to new grader user:
+    * `su - grader`
+* Added directory **.ssh**:
+    * `mkdir .ssh`
+* Added file **.ssh/authorized_keys** and copied ssh public key contents to **authorized_keys**
+* Restrict permissions to .ssh:
+    * `chmod 700 .ssh`
+* Restrict permissions to authorized_keys:
+    * `chmod 644 .ssh/authorized_keys`
 
+#### 2. Forcing Key Based Authentication
+* Edit file **/etc/ssh/sshd_config**:
+    * `sudo vim /etc/ssh/sshd_config`
+    * Changed **PasswordAuthentication yes** to **PasswordAuthentication no**
+* Restarted ssh service:
+    * `sudo service ssh restart`
 
 ## User management
 1. Grant `sudo` permission and prompt for user password at least once

@@ -62,6 +62,23 @@ A project for a setup and configure a Linux (Ubuntu) web server using Amazon AWS
 * Restarted ssh service:
     * `sudo service ssh restart`
 
+#### 4. Configure the Uncomplicated Firewall (UFW)
+* Check firewall status:
+    * `sudo ufw status`
+* Denying incoming:
+    * `sudo ufw default deny incoming`
+* Allowing outgoing:
+    * `sudo ufw default allow outgoing`
+* Stabilising rules:
+    * SSH (port 2200):
+        * `sudo ufw allow 2200/tcp`
+    * HTTP (port 80):
+        * `sudo ufw allow www`
+    * NTP (port 123):
+        * `sudo ufw allow ntp`
+* Enabling firewall:
+    * `sudo ufw enable`
+
 ## User management
 1. Grant `sudo` permission and prompt for user password at least once
     * To accomplish this task I added a text file named *grader* to **/etc/sudoers.d/** directory with the following content:

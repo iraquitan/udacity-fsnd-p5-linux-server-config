@@ -16,6 +16,9 @@ A project for a setup and configure a Linux (Ubuntu) web server using Amazon AWS
     * `sudo adduser grader`
     * Added secure password
     * Granted `sudo` permissions to **grader** (described in [User management](#user-management))
+* Updated all currently installed applications:
+    * `sudo apt-get update`
+    * `sudo apt-get-upgrade`
 * Changed EC2 instance time zone to UTC:
     * `sudo dpkg-reconfigure tzdata`
 * Set time sync with NTP:

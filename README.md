@@ -42,7 +42,7 @@ A project for a setup and configure a Linux (Ubuntu) web server using Amazon AWS
     * `su - grader`
 * Added directory **.ssh**:
     * `mkdir .ssh`
-* Added file **.ssh/authorized_keys** and copied ssh public key contents to **authorized_keys**
+* Added file **.ssh/authorized_keys** and copied ssh public key contents of udacity_key to **authorized_keys**
 * Restrict permissions to .ssh:
     * `chmod 700 .ssh`
 * Restrict permissions to authorized_keys:

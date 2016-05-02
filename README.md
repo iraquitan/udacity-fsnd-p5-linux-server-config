@@ -51,7 +51,14 @@ A project for a setup and configure a Linux (Ubuntu) web server using Amazon AWS
 #### 2. Forcing Key Based Authentication
 * Edit file **/etc/ssh/sshd_config**:
     * `sudo vim /etc/ssh/sshd_config`
-    * Changed **PasswordAuthentication yes** to **PasswordAuthentication no**
+    * Changed line **PasswordAuthentication yes** to **PasswordAuthentication no**
+* Restarted ssh service:
+    * `sudo service ssh restart`
+
+#### 3. SSH is hosted on non-default port
+* Edit file **/etc/ssh/sshd_config**:
+    * `sudo vim /etc/ssh/sshd_config`
+    * Changed line **Port 22** to **Port 2200**
 * Restarted ssh service:
     * `sudo service ssh restart`
 

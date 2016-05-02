@@ -79,11 +79,15 @@ A project for a setup and configure a Linux (Ubuntu) web server using Amazon AWS
 * Enabling firewall:
     * `sudo ufw enable`
 
-## User management
-1. Grant `sudo` permission and prompt for user password at least once
-    * To accomplish this task I added a text file named *grader* to **/etc/sudoers.d/** directory with the following content:
-        * `grader ALL=(ALL) ALL`
-    * This way the user is asked for password at least once per session.
+### User management
+#### 1. Grant `sudo` permission and prompt for user password at least once
+* To accomplish this task I added a text file named *grader* to **/etc/sudoers.d/** directory with the following content:
+    * `grader ALL=(ALL) ALL`
+* This way the user is asked for password at least once per session.
+
+#### 2. Disable remote login of the root user
+* Edit file **/etc/ssh/sshd_config**:
+    * Changed line **PermitRootLogin yes** to **PermitRootLogin no**
 
 ## Creator
 **Iraquitan Cordeiro Filho**

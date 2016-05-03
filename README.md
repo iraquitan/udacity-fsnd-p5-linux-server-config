@@ -88,7 +88,8 @@ A project for a setup and configure a Linux (Ubuntu) web server using Amazon AWS
 
 #### 2. Disable remote login of the root user
 * Edit file **/etc/ssh/sshd_config**:
-    * Changed line **PermitRootLogin yes** to **PermitRootLogin no**
+    * Changed line **PermitRootLogin without-password** to **PermitRootLogin no**
+    * Restarted SSH with `service ssh restart`
 
 ## Creator
 **Iraquitan Cordeiro Filho**

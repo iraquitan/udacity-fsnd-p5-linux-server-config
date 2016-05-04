@@ -91,6 +91,13 @@ A project for a setup and configure a Linux (Ubuntu) web server using Amazon AWS
     * Changed line **PermitRootLogin without-password** to **PermitRootLogin no**
     * Restarted SSH with `service ssh restart`
 
+#### 3. Ensure user have a secure password
+* Install *libpam-cracklib*:
+    * `sudo apt-get install libpam-cracklib`
+* Update **/etc/pam.d/common-password** file, by adding following line:  
+    * `password requisite pam_cracklib.so minlength=16 ucredit=-1 lcredit=-1 dcredit=-1 ocredit=-1 difok=4`
+* Explain line
+
 ## Creator
 **Iraquitan Cordeiro Filho**
 * <https://github.com/iraquitan>

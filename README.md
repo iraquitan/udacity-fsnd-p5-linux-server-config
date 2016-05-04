@@ -3,7 +3,9 @@ A project for a setup and configure a Linux (Ubuntu) web server using Amazon AWS
 
 ## Table of contents
 * [Quick start](#quick-start)
+* [Securing server](#securing-server)
 * [User management](#user-management)
+* [Third-Party Resources](#third-party-resources)
 * [Creator](#creator)
 * [License](#license)
 
@@ -96,7 +98,17 @@ A project for a setup and configure a Linux (Ubuntu) web server using Amazon AWS
     * `sudo apt-get install libpam-cracklib`
 * Update **/etc/pam.d/common-password** file, by adding following line:  
     * `password requisite pam_cracklib.so minlength=16 ucredit=-1 lcredit=-1 dcredit=-1 ocredit=-1 difok=4`
-* Explain line
+    * These settings would ensure that passwords have 12 characters, including at least one characters in each of the four classes.
+    * Below is a short description of the arguments used for password complexity:
+        * **minlength**: establishes a measure of complexity related to the password length
+        * **lcredit**: sets the minimum number of required lowercase letters
+        * **ucredit**: sets the minimum number of required uppercase letters
+        * **dcredit**: sets the minimum number of required digits
+        * **ocredit**: sets the minimum number of required other characters
+        * **difok**: sets the number of characters that must be different 
+
+## Third-Party Resources
+[How to enforce password complexity on Linux](http://www.computerworld.com/article/2726217/endpoint-protection/how-to-enforce-password-complexity-on-linux.html)
 
 ## Creator
 **Iraquitan Cordeiro Filho**

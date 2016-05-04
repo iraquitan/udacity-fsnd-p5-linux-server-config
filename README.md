@@ -38,6 +38,16 @@ A project for a setup and configure a Linux (Ubuntu) web server using Amazon AWS
     * Reload NTP service:
         * `sudo service ntp reload`
 
+#### 5. Server needs
+* Install Apache HTTP Server:
+    * `sudo apt-get install apache2`
+* Install mod_wsgi:
+    * `sudo apt-get install libapache2-mod-wsgi`
+* Install PostgreSQL:
+    * `sudo apt-get install postgresql postgresql-contrib`
+* Install Git:
+    * `sudo apt-get install git-all`
+
 ### Securing server
 #### 1. Adding Key Based login to new user **grader**
 * Changed from root user to new grader user:
@@ -110,6 +120,13 @@ A project for a setup and configure a Linux (Ubuntu) web server using Amazon AWS
 ## Third-Party Resources
 * [How to enforce password complexity on Linux](http://www.computerworld.com/article/2726217/endpoint-protection/how-to-enforce-password-complexity-on-linux.html)
 * [Initial Server Setup with Ubuntu 14.04](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-14-04)
+* [Installing Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+* [How To Configure the Apache Web Server on an Ubuntu or Debian VPS](https://www.digitalocean.com/community/tutorials/how-to-configure-the-apache-web-server-on-an-ubuntu-or-debian-vps)
+* [How To Install and Use PostgreSQL on Ubuntu 14.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-14-04)
+* [How To Secure PostgreSQL on an Ubuntu VPS](https://www.digitalocean.com/community/tutorials/how-to-secure-postgresql-on-an-ubuntu-vps)
+* [How To Deploy a Flask Application on an Ubuntu VPS](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps)
+* [Flask Deploying - mod_wsgi (Apache)](http://flask.pocoo.org/docs/0.10/deploying/mod_wsgi/)
+* [A Step by Step Guide to Install LAMP (Linux, Apache, MySQL, Python) on Ubuntu](http://blog.udacity.com/2015/03/step-by-step-guide-install-lamp-linux-apache-mysql-python-ubuntu.html)
 
 ## Creator
 **Iraquitan Cordeiro Filho**

@@ -108,7 +108,8 @@ A project for a setup and configure a Linux (Ubuntu) web server using Amazon AWS
         * **difok**: sets the number of characters that must be different 
 
 ## Third-Party Resources
-[How to enforce password complexity on Linux](http://www.computerworld.com/article/2726217/endpoint-protection/how-to-enforce-password-complexity-on-linux.html)
+* [How to enforce password complexity on Linux](http://www.computerworld.com/article/2726217/endpoint-protection/how-to-enforce-password-complexity-on-linux.html)
+* [Initial Server Setup with Ubuntu 14.04](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-14-04)
 
 ## Creator
 **Iraquitan Cordeiro Filho**

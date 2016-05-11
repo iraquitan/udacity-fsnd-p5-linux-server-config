@@ -43,8 +43,16 @@ A project for a setup and configure a Linux (Ubuntu) web server using Amazon AWS
     * `sudo apt-get install apache2`
 * Install mod_wsgi:
     * `sudo apt-get install libapache2-mod-wsgi`
-* Install PostgreSQL:
-    * `sudo apt-get install postgresql postgresql-contrib`
+* PostgreSQL:
+    1. Install:
+        * `sudo apt-get install postgresql postgresql-contrib`
+    2. Setup:
+        * Connect to the **postgres** user:
+            * `sudo -i -u postgres`
+        * Create a new role:
+            * `createuser --interactive`
+        * Create database for new user:
+            * `createdb catalog`
 * Install Git:
     * `sudo apt-get install git-all`
 

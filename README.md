@@ -26,6 +26,10 @@ A project for a setup and configure a Linux (Ubuntu) web server using Amazon AWS
 * Updated all currently installed applications:
     * `sudo apt-get update`
     * `sudo apt-get upgrade`
+* Setup Python environment:
+    * `sudo apt-get install python-psycopg2`
+    * `sudo apt-get install python-flask python-sqlalchemy`
+    * `sudo apt-get install python-pip`
 
 #### 4. Configure the local timezone to UTC
 * Changed EC2 instance time zone to UTC:

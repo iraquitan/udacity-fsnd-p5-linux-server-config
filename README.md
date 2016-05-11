@@ -57,8 +57,20 @@ A project for a setup and configure a Linux (Ubuntu) web server using Amazon AWS
             * `createuser --interactive`
         * Create database for new user:
             * `createdb catalog`
-* Install Git:
-    * `sudo apt-get install git-all`
+        * Set password for role catalog:
+            * `psql`
+            * `\password catalog`
+* Git:
+    1. Install:
+        * `sudo apt-get install git-all`
+    2. Setup Catalog project:
+        * Cloned the Catalog app repository inside the */var/www/* and followed the README instructions.
+    3. Additional changes:
+        * Changed */instance/config.py*:
+            * `SQLALCHEMY_DATABASE_URI = "sqlite:///../catalog/catalog.db"` to `SQLALCHEMY_DATABASE_URI = "postgresql://catalog:password@localhost/catalog"`
+        * Changed */catalog/models.py*:
+            * `description = db.Column(db.String(500))` to `description = db.Column(db.TEXT)`
+        
 
 ### Securing server
 #### 1. Adding Key Based login to new user **grader**

@@ -12,103 +12,130 @@ A project for a setup and configure a Linux (Ubuntu) web server using Amazon AWS
 ## Quick start
 ### Performing basic configuration
 #### 1. Launch your Virtual Machine with your Udacity account and log in
-* Launched Amazon EC2 instance using this [link](https://www.udacity.com/account#!/development_environment)
-* Accessed the EC2 instance using SSH with the following command:
-    * `ssh -i .ssh/udacity_key.rsa root@52.38.46.41`
+Launched Amazon EC2 instance using this [link](https://www.udacity.com/account#!/development_environment) from Udacity. Then I accessed the EC2 instance using SSH with the following command:
+```
+ssh -i .ssh/udacity_key.rsa root@52.38.46.41
+```
 
 #### 2. Create a new user named grader and grant this user sudo permissions 
-* Created a new user named **grader** using the following command:
-    * `sudo adduser grader`
-    * Added secure password
-    * Granted `sudo` permissions to **grader** (described in [User management](#user-management))
+Created a new user named **grader** using the following command:
+```
+sudo adduser grader
+```
+Followed the instructions in command line and added a secure password. After that I granted `sudo` permissions to **grader** user (described in [User management](#user-management)).
 
 #### 3. Update all currently installed packages
-* Updated all currently installed applications:
-    * `sudo apt-get update`
-    * `sudo apt-get upgrade`
-* Setup Python environment:
-    * `sudo apt-get install python-psycopg2`
-    * `sudo apt-get install python-flask python-sqlalchemy`
-    * `sudo apt-get install python-pip`
+Updated all currently installed applications:
+```
+sudo apt-get update
+sudo apt-get upgrade
+```
+And setup Python environment:
+```
+sudo apt-get install python-psycopg2
+sudo apt-get install python-flask python-sqlalchemy
+sudo apt-get install python-pip
+```
 
 #### 4. Configure the local timezone to UTC
-* Changed EC2 instance time zone to UTC:
-    * `sudo dpkg-reconfigure tzdata`
-* Set time sync with NTP:
-    * `sudo apt-get install ntp` 
-    * Added additional servers **/etc/ntp.conf**:
-            * `server ntp.ubuntu.com`
-            * `server pool.ntp.org`
-    * Reload NTP service:
-        * `sudo service ntp reload`
+Changed EC2 instance time zone to UTC:
+```
+sudo dpkg-reconfigure tzdata
+```
+And set time sync with NTP:
+```
+sudo apt-get install ntp
+``` 
+Then added additional servers to **/etc/ntp.conf** file:
+```
+server ntp.ubuntu.com
+server pool.ntp.org
+```
+And reloaded the NTP service:
+```
+sudo service ntp reload
+```
 
 #### 5. Server needs
-* Install Apache HTTP Server:
-    * `sudo apt-get install apache2`
-* mod_wsgi:
-    1. Install:
-        * `sudo apt-get install libapache2-mod-wsgi`
-    2. Setup:
-        * Configured and enabled a new Virtual Host:
-            * `sudo vim /etc/apache2/sites-available/catalog-app.conf`
-            * ```
-            <VirtualHost *:80>
-                    ServerName http://ec2-52-38-46-41.us-west-2.compute.amazonaws.com/
-                    #ServerAdmin admin@mywebsite.com
-                    WSGIScriptAlias / /var/www/catalog-app/catalog.wsgi
-                    <Directory /var/www/catalog-app/catalog/>
-                        Order allow,deny
-                        Allow from all
-                    </Directory>
-                    Alias /static /var/www/catalog-app/catalog/static
-                    <Directory /var/www/catalog-app/catalog/static/>
-                        Order allow,deny
-                        Allow from all
-                    </Directory>
-                    ErrorLog ${APACHE_LOG_DIR}/error.log
-                    LogLevel warn
-                    CustomLog ${APACHE_LOG_DIR}/access.log combined
-            </VirtualHost>
-            ```
-            * Enabled the Virtual Host:
-                * `sudo a2ensite catalog-app`
-        * Created the .wsgi file:
-            * `sudo vim /var/www/catalog-app/catalog.wsgi`
-            * ```python
-            #!/usr/bin/python
-            import sys
-            import logging
-            logging.basicConfig(stream=sys.stderr)
-            sys.path.insert(0, "/var/www/catalog-app/")
-            from catalog import app as application
-            application.secret_key = 'Add your secret key'
-            ```
-        * Restart Apache:
-            * `sudo service apache2 restart`
-* PostgreSQL:
-    1. Install:
-        * `sudo apt-get install postgresql postgresql-contrib`
-    2. Setup:
-        * Connect to the **postgres** user:
-            * `sudo -i -u postgres`
-        * Create a new role:
-            * `createuser --interactive`
-        * Create database for new user:
-            * `createdb catalog`
-        * Set password for role catalog:
-            * `psql`
-            * `\password catalog`
-* Git:
-    1. Install:
-        * `sudo apt-get install git-all`
-    2. Setup Catalog project:
-        * Cloned the Catalog app repository inside the */var/www/* and followed the README instructions.
-    3. Additional changes:
-        * Changed */instance/config.py*:
-            * `SQLALCHEMY_DATABASE_URI = "sqlite:///../catalog/catalog.db"` to `SQLALCHEMY_DATABASE_URI = "postgresql://catalog:password@localhost/catalog"`
-        * Changed */catalog/models.py*:
-            * `description = db.Column(db.String(500))` to `description = db.Column(db.TEXT)`
-        
+##### Apache HTTP Server
+Installed Apache HTTP Server:
+```
+sudo apt-get install apache2
+```
+
+##### mod_wsgi
+Then I installed mod_wsgi:
+```
+sudo apt-get install libapache2-mod-wsgi
+```
+And configured a new Virtual Host by `sudo vim /etc/apache2/sites-available/catalog-app.conf` with the following content:
+```
+<VirtualHost *:80>
+        ServerName http://ec2-52-38-46-41.us-west-2.compute.amazonaws.com/
+        #ServerAdmin admin@mywebsite.com
+        WSGIScriptAlias / /var/www/catalog-app/catalog.wsgi
+        <Directory /var/www/catalog-app/catalog/>
+            Order allow,deny
+            Allow from all
+        </Directory>
+        Alias /static /var/www/catalog-app/catalog/static
+        <Directory /var/www/catalog-app/catalog/static/>
+            Order allow,deny
+            Allow from all
+        </Directory>
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        LogLevel warn
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
+And enabled the new Virtual Host:
+```
+sudo a2ensite catalog-app
+```
+After that I created the .wsgi file by `sudo vim /var/www/catalog-app/catalog.wsgi` with the following content:
+```python
+#!/usr/bin/python
+import sys
+import logging
+logging.basicConfig(stream=sys.stderr)
+sys.path.insert(0, "/var/www/catalog-app/")
+from catalog import app as application
+application.secret_key = 'Add your secret key'
+```
+And restarted Apache:
+```
+sudo service apache restart
+```
+##### PostgreSQL
+Installed PostgreSQL:
+```
+sudo apt-get install postgresql postgresql-contrib
+```
+To setup, I connected to the **postgres** user:
+```
+sudo -i -u postgres
+```
+Created a new role:
+```
+createuser --interactive
+```
+Created database for new user **catalog**:
+```
+createdb catalog
+```
+And set a password for the catalog role:
+```
+psql
+\password catalog
+```
+And followed the commnand line instructions
+##### Git
+To install Git:
+```
+sudo apt-get install git-all
+```
+Then to setup Catalog project I cloned the Catalog app repository inside the */var/www/* and followed the README instructions. I made additional changes for the project to work with PostgreSQL. I changed */instance/config.py* file from `SQLALCHEMY_DATABASE_URI = "sqlite:///../catalog/catalog.db"` to `SQLALCHEMY_DATABASE_URI = "postgresql://catalog:password@localhost/catalog"`.
+And also changed */catalog/models.py* file from `description = db.Column(db.String(500))` to `description = db.Column(db.TEXT)` to support long description in PostgreSQL.
 
 ### Securing server
 #### 1. Adding Key Based login to new user **grader**
@@ -165,7 +192,7 @@ A project for a setup and configure a Linux (Ubuntu) web server using Amazon AWS
     * Changed line **PermitRootLogin without-password** to **PermitRootLogin no**
     * Restarted SSH with `service ssh restart`
 
-#### 3. Ensure user have a secure password
+#### 3. Ensure users have a secure password
 * Install *libpam-cracklib*:
     * `sudo apt-get install libpam-cracklib`
 * Update **/etc/pam.d/common-password** file, by adding following line:  
@@ -189,6 +216,7 @@ A project for a setup and configure a Linux (Ubuntu) web server using Amazon AWS
 * [How To Deploy a Flask Application on an Ubuntu VPS](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps)
 * [Flask Deploying - mod_wsgi (Apache)](http://flask.pocoo.org/docs/0.10/deploying/mod_wsgi/)
 * [A Step by Step Guide to Install LAMP (Linux, Apache, MySQL, Python) on Ubuntu](http://blog.udacity.com/2015/03/step-by-step-guide-install-lamp-linux-apache-mysql-python-ubuntu.html)
+* [Flask by Example - Setting Up Postgres, SQLAlchemy, and Alembic](https://realpython.com/blog/python/flask-by-example-part-2-postgres-sqlalchemy-and-alembic/)
 
 ## Creator
 **Iraquitan Cordeiro Filho**

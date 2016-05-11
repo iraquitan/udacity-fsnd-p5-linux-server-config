@@ -45,8 +45,46 @@ A project for a setup and configure a Linux (Ubuntu) web server using Amazon AWS
 #### 5. Server needs
 * Install Apache HTTP Server:
     * `sudo apt-get install apache2`
-* Install mod_wsgi:
-    * `sudo apt-get install libapache2-mod-wsgi`
+* mod_wsgi:
+    1. Install:
+        * `sudo apt-get install libapache2-mod-wsgi`
+    2. Setup:
+        * Configured and enabled a new Virtual Host:
+            * `sudo vim /etc/apache2/sites-available/catalog-app.conf`
+            * ```
+            <VirtualHost *:80>
+                    ServerName http://ec2-52-38-46-41.us-west-2.compute.amazonaws.com/
+                    #ServerAdmin admin@mywebsite.com
+                    WSGIScriptAlias / /var/www/catalog-app/catalog.wsgi
+                    <Directory /var/www/catalog-app/catalog/>
+                        Order allow,deny
+                        Allow from all
+                    </Directory>
+                    Alias /static /var/www/catalog-app/catalog/static
+                    <Directory /var/www/catalog-app/catalog/static/>
+                        Order allow,deny
+                        Allow from all
+                    </Directory>
+                    ErrorLog ${APACHE_LOG_DIR}/error.log
+                    LogLevel warn
+                    CustomLog ${APACHE_LOG_DIR}/access.log combined
+            </VirtualHost>
+            ```
+            * Enabled the Virtual Host:
+                * `sudo a2ensite catalog-app`
+        * Created the .wsgi file:
+            * `sudo vim /var/www/catalog-app/catalog.wsgi`
+            * ```python
+            #!/usr/bin/python
+            import sys
+            import logging
+            logging.basicConfig(stream=sys.stderr)
+            sys.path.insert(0, "/var/www/catalog-app/")
+            from catalog import app as application
+            application.secret_key = 'Add your secret key'
+            ```
+        * Restart Apache:
+            * `sudo service apache2 restart`
 * PostgreSQL:
     1. Install:
         * `sudo apt-get install postgresql postgresql-contrib`

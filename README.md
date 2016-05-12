@@ -17,7 +17,7 @@ A project for a setup and configure a Linux (Ubuntu) web server using Amazon AWS
 |IP Address|52.38.46.41|
 |SSH Port|2200|
 |Username|grader|
-|URL of Application|[http://ec2-52-38-46-41.us-west-2.compute.amazonaws.com/](http://ec2-52-38-46-41.us-west-2.compute.amazonaws.com/)|
+|URL of Application|<a href="http://ec2-52-38-46-41.us-west-2.compute.amazonaws.com/" target="_blank">http://ec2-52-38-46-41.us-west-2.compute.amazonaws.com/</a>|
 
 To connect to EC2 instance you need the udacity_key.rsa (supplied separately in the submit process): 
 ```

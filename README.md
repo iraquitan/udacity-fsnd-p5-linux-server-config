@@ -3,6 +3,7 @@ A project for a setup and configure a Linux (Ubuntu) web server using Amazon AWS
 
 ## Table of contents
 * [Quick start](#quick-start)
+* [Summary of software and configuration](#summary-of-software-and-configuration)
 * [Securing server](#securing-server)
 * [User management](#user-management)
 * [Third-Party Resources](#third-party-resources)
@@ -10,6 +11,20 @@ A project for a setup and configure a Linux (Ubuntu) web server using Amazon AWS
 * [License](#license)
 
 ## Quick start
+
+| Name | Value |
+|---|---|
+|IP Address|52.38.46.41|
+|SSH Port|2200|
+|Username|grader|
+|URL of Application|[http://ec2-52-38-46-41.us-west-2.compute.amazonaws.com/](http://ec2-52-38-46-41.us-west-2.compute.amazonaws.com/)|
+
+To connect to EC2 instance you need the udacity_key.rsa (supplied separately in the submit process): 
+```
+ssh -i .ssh/udacity_key.rsa grader@52.38.46.41 -p 2200
+```
+
+## Summary of software and configuration
 ### Performing basic configuration
 #### 1. Launch your Virtual Machine with your Udacity account and log in
 Launched Amazon EC2 instance using this [link](https://www.udacity.com/account#!/development_environment) from Udacity. Then I accessed the EC2 instance using SSH with the following command:
